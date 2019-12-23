@@ -11,14 +11,14 @@ export function getInitialData () {
     _getUsers(),
     _getQuestions(),
     _getAuthedUser(),
-  ]).then(([users, questions, authedUserId]) => ({
+  ]).then(([users, questions, authedUser]) => ({
     users,
     questions,
-    authedUserId,
+    authedUser,
   }))
 }
 
-export function _setAuthedUser (user) {
+export function setAuthedUser (user) {
   return _loginUser(user)
 }
 

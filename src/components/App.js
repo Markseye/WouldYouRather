@@ -30,15 +30,10 @@ class App extends Component {
         <Fragment>
           <Header />
           <LoadingBar />
-          <div>
-            <header />
-              <div>
-                <Route path='/' exact component={QuestionList} />
-                <Route path='/question/:id' component={Question} />
-                <Route path='/login' component={LoginModal} />
-                <PrivateRoute path='/new' component={NewQuestion} />
-              </div>
-          </div>
+          <Route path='/' exact component={QuestionList} />
+          <Route path='/question/:id' component={Question} />
+          <Route path='/login' component={LoginModal} />
+          <PrivateRoute path='/new' component={NewQuestion} />
         </Fragment>
       </Router>
     )

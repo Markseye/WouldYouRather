@@ -11,7 +11,7 @@ class LoginModal extends Component {
   }
 
   handleLogin(user_id) {
-    // let history = useHistory();
+    // let history = useHistory();  
     const user = this.props.dispatch(setAuthedUser(user_id)).id
     this.setState({isLoggedIn: true})
     this.props.handleClose()
