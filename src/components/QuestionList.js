@@ -21,27 +21,27 @@ class QuestionList extends Component {
 
   render() {
     return (
-      <div className='tab-list'>
-        <ul>
+      <div className='tabs'>
+        <ul className='tab-list'>
           <h3 className={this.styleTab('unanswered')}
               onClick={() => this.handleTabClick('unanswered')}>
             Unanswered Questions
           </h3>
           <span style={{display: this.state.openTab === 'unanswered' ? null : 'none' }}>
             {Object.values(this.props.unansweredQuestions).map((question) => (
-              <li style={{listStyle: 'none'}} key={question.id}>
+              <li key={question.id}>
                 <Question id={question.id} />
               </li>
             ))}
           </span>
         </ul>
-        <ul>
+        <ul className='tab-list'>
           <h3 className={this.styleTab('answered')}
               onClick={() => this.handleTabClick('answered')}>
             Answered Questions
           </h3>
           <span style={{display: this.state.openTab === 'answered' ? null : 'none' }}>
-            {(this.props.answeredQuestions.size > 0) ?
+            {(this.props.answeredQuestions.length > 0) ?
               Object.values(this.props.answeredQuestions).map((question) => (
                 <li key={question.id}>
                   <Question id={question.id} />
@@ -60,15 +60,17 @@ function mapStateToProps ({questions, users, authedUser}) {
   return {
     users,
     unansweredQuestions: Object.values(questions)
-      .filter((question) => !userAnsweredQuestion(question, authedUser)),
+      .filter((question) => !userAnsweredQuestion(question, authedUser))
+      .sort((a,b) => questions[b.id].timestamp - questions[a.id].timestamp),
     answeredQuestions: Object.values(questions)
-      .map((question) => userAnsweredQuestion(question, authedUser))
+      .filter((question) => userAnsweredQuestion(question, authedUser))
+      .sort((a,b) => questions[b.id].timestamp - questions[a.id].timestamp)
   }
 }
 
 function userAnsweredQuestion (question, authedUserId) {
-  question.optionOne.votes.includes(authedUserId) ||
-    question.optionTwo.votes.includes(authedUserId)
+  return (question.optionOne.votes.includes(authedUserId) ||
+    question.optionTwo.votes.includes(authedUserId))
 }
 
 export default connect(mapStateToProps)(QuestionList)
