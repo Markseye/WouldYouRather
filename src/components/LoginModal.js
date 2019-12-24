@@ -34,14 +34,18 @@ class LoginModal extends Component {
         <div className='modal'>
           <div className='modal-main'>
             <button onClick={handleClose}>X</button>
-            <h3>Please select your user</h3>
-            <ul>
-              {users.map((user) => (
-                <li key={user.id} onClick={() => this.handleLogin(user.id)}>
-                  <p>{user.id}</p>
-                </li>
-              ))}
-            </ul>
+            <div className='modal-user-section'>
+              <h3>Please select your user</h3>
+              <ul className='modal-user-list'>
+                {users.map((user) => (
+                  <li className='modal-user-item'
+                      key={user.id}
+                      onClick={() => this.handleLogin(user.id)}>
+                    <p>{user.id}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>)
     } else {
