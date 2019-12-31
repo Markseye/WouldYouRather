@@ -91,7 +91,7 @@
 
 .modal-user-list {
   list-style: none;
-  padding: 0;
+  padding: 10px;
 }
 
 .modal-user-list ul {
@@ -101,6 +101,9 @@
 
 .modal-user-item {
   cursor: pointer;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+  margin: 5px 0;
 }
 
 .nav ul {

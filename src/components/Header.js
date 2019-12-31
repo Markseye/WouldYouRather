@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
-import LoginModal from './LoginModal';
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { setAuthedUser } from '../actions/authedUser'
 
 class Header extends Component {
   state = {
     isOpen: false
   }
 
-  toggleLoginModal = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
+  logout() {
+    this.props.dispatch(setAuthedUser(null))
   }
 
   render() {
@@ -19,9 +17,8 @@ class Header extends Component {
       <nav className='nav'>
         <ul>
           <li>
-            {this.props.authedUser === null || Object.keys(this.props.authedUser).length === 0 ? <button className='login-button' onClick={() => this.toggleLoginModal()}> Login </button>
-              : <h3> User {this.props.authedUser} </h3>}
-            <LoginModal display={this.state.isOpen} handleClose={this.toggleLoginModal} />
+            {this.props.authedUser === null || Object.keys(this.props.authedUser).length === 0 ? <NavLink className='login-button' to='/login'> Login </NavLink>
+              : <h3> User {this.props.authedUser} <button onClick={() => this.logout()}>LogOut</button></h3>}
           </li>
           <li>
             <NavLink to='/add' exact activeClassName='active'>
