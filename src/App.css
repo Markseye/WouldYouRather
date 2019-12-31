@@ -21,6 +21,34 @@
   color: #09d3ac;
 }
 
+.active {
+  font-weight: bold;
+}
+
+.avatar {
+  height: 50px;
+  border-radius: 25px;
+  margin: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+}
+
+.leaderboard-list-item {
+  text-align: center;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+  padding: 10px;
+}
+
 .login-button {
   background-color: #4CAF50; /* Green */
   border-radius: 5px;
@@ -66,12 +94,79 @@
   padding: 0;
 }
 
+.modal-user-list ul {
+  display: flex;
+  flex-direction: column;
+}
+
 .modal-user-item {
+  cursor: pointer;
+}
+
+.nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-decoration: none;
+  list-style: none;
+  padding: 0 10px;
+  margin: 0;
+}
+
+.nav li {
+  padding: 20px;
+  display : flex;
+  align-items : center;
+  justify-content: center;
+}
+
+.nav li:first-child {
+  padding-left: 0;
+  margin: 0;
+}
+
+.new-question {
+  width: 100%;
+  max-width: 590px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.options-container {
+  width: 100%;
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  padding: 0;
+}
+
+.option-container {
+  max-width: 590px;
+  padding: 10px;
+  margin: 20px;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+}
+
+.question {
+  justify-content: center;
+  width: 100%;
+  max-width: 590px;
+  padding: 10px;
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
   cursor: pointer;
 }
 
 .questions-list {
   text-align: center;
+}
+
+.question-list-item {
+  justify-content: center;
 }
 
 .tab-active {
@@ -103,4 +198,12 @@
   border-bottom: 1px solid #ccc;
   padding-left: 0;
   text-align: center;
+}
+
+.textarea {
+  border-radius: 4px;
+  border: 1px solid #dad7d7;
+  padding: 10px;
+  font-size: 15px;
+  height: 100px;
 }

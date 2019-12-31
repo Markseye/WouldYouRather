@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Question from './Question'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 
 class QuestionList extends Component {
   
@@ -28,11 +29,18 @@ class QuestionList extends Component {
             Unanswered Questions
           </h3>
           <span style={{display: this.state.openTab === 'unanswered' ? null : 'none' }}>
-            {Object.values(this.props.unansweredQuestions).map((question) => (
-              <li key={question.id}>
-                <Question id={question.id} />
-              </li>
-            ))}
+           {this.props.loadingBar.default === 0 ? 
+             (this.props.unansweredQuestions.length > 0) ?
+              Object.values(this.props.unansweredQuestions).map((question) => (
+                <li key={question.id}>
+                  <Question id={question.id} />
+                </li>
+              ))
+              : <h2>You've answered all questions! <br/>
+                  <Link to='/add'>Now create one!</Link>
+                </h2>
+           : null
+          }
           </span>
         </ul>
         <ul className='tab-list'>
@@ -47,7 +55,7 @@ class QuestionList extends Component {
                   <Question id={question.id} />
                 </li>
               ))
-            : <h2>You've answered all the questions. Now create one!</h2>
+            : <h2>Login to answer questions!</h2>
             }
           </span>
         </ul>
@@ -56,7 +64,7 @@ class QuestionList extends Component {
   }
 }
 
-function mapStateToProps ({questions, users, authedUser}) {
+function mapStateToProps ({questions, users, authedUser, loadingBar}) {
   return {
     users,
     unansweredQuestions: Object.values(questions)
@@ -64,7 +72,8 @@ function mapStateToProps ({questions, users, authedUser}) {
       .sort((a,b) => questions[b.id].timestamp - questions[a.id].timestamp),
     answeredQuestions: Object.values(questions)
       .filter((question) => userAnsweredQuestion(question, authedUser))
-      .sort((a,b) => questions[b.id].timestamp - questions[a.id].timestamp)
+      .sort((a,b) => questions[b.id].timestamp - questions[a.id].timestamp),
+    loadingBar
   }
 }
 

@@ -2,7 +2,7 @@ let users = {
   sarahedo: {
     id: 'sarahedo',
     name: 'Sarah Edo',
-    avatarURL: '../images/icon1',
+    avatarURL: 'https://media.istockphoto.com/photos/businesswoman-icon-as-avatar-profile-picture-picture-id514585871?k=6&m=514585871&s=612x612&w=0&h=gnCoIHrMLFfqVtNl8bJKaKt9wpkDKYsfICE1aRtl9y4=',
     answers: {
       "8xf0y6ziyjabvozdd253nd": 'optionOne',
       "6ni6ok3ym7mf1p33lnez": 'optionTwo',
@@ -14,7 +14,7 @@ let users = {
   tylermcginnis: {
     id: 'tylermcginnis',
     name: 'Tyler McGinnis',
-    avatarURL: '../images/icon2',
+    avatarURL: 'https://cdn0.iconfinder.com/data/icons/handsome-man-avatars/283/stock_man_avatar-04-512.png',
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
       "xj352vofupe1dqz9emx13r": 'optionTwo',
@@ -24,7 +24,7 @@ let users = {
   johndoe: {
     id: 'johndoe',
     name: 'John Doe',
-    avatarURL: '../images/icon3',
+    avatarURL: 'https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id476085198?k=6&m=476085198&s=612x612&w=0&h=5cDQxXHFzgyz8qYeBQu2gCZq1_TN0z40e_8ayzne0X0=',
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',
@@ -39,7 +39,7 @@ let authedUser = {}
 let questions = {
   "8xf0y6ziyjabvozdd253nd": {
     id: '8xf0y6ziyjabvozdd253nd',
-    author: 'sarahedo',
+    author: 'tylermcginnis',
     timestamp: 1467166872634,
     optionOne: {
       votes: ['sarahedo'],
@@ -117,6 +117,24 @@ let questions = {
   },
 }
 
+export function _addVote({question, authedUser, option}) {
+  return new Promise((res, rej) => {
+    // option.number === 1 ? optionOne : optionTwo
+    const newOption = {votes: option.votes.concat([authedUser]),
+                text: option.text}
+
+    setTimeout(() => {
+      questions = {
+        ...questions,
+        [question.id]: {...question,
+                        optionOne: option.number === 1 ? newOption : question.optionOne,
+                        optionTwo: option.number === 2 ? newOption : question.optionTwo}
+      }
+      res(questions[question.id])
+    }, 1000)
+  })
+}
+
 function generateUID () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
@@ -173,7 +191,7 @@ export function _saveQuestion (question) {
         ...questions,
         [formattedQuestion.id]: formattedQuestion
       }
-      
+
       users = {
         ...users,
         [authedUser]: {

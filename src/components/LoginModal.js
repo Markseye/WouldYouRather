@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setAuthedUser } from '../actions/authedUser'
-// import { useAlert } from 'react-alert'
-import { Redirect, useHistory } from 'react-router-dom'
-// import { RECEIVE_USERS } from '../actions/users'
+import { Redirect } from 'react-router-dom'
 
 class LoginModal extends Component {
   state = {
@@ -11,23 +9,21 @@ class LoginModal extends Component {
   }
 
   handleLogin(user_id) {
-    // let history = useHistory();  
-    const user = this.props.dispatch(setAuthedUser(user_id)).id
+    this.props.dispatch(setAuthedUser(user_id))
     this.setState({isLoggedIn: true})
     this.props.handleClose()
-    // history.push("/")
   }
 
   resetLogin() { this.setState({isLoggedIn: false}) }
 
   render () {
     const { users, handleClose } = this.props
+
+    if (this.state.isLoggedIn === true) {
+      return <Redirect to='/' />
+    }
     // let history = useHistory
     if(this.props.display === true) {
-      if (this.state.isLoggedIn === true) {
-        this.resetLogin()
-        return <Redirect to='/' />
-      }
       // const alert = useAlert()
       //&& alert.show('You are now logged in as ', user.id)
       return (
@@ -56,7 +52,7 @@ class LoginModal extends Component {
 
 function mapStateToProps ({users}) {
   return {
-    users: Object.values(users).map((user) => user )
+    users: Object.values(users)
   }
 }
 

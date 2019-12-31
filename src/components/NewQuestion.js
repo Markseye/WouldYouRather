@@ -11,7 +11,6 @@ class NewQuestion extends Component {
   }
 
   handleChange = (e, option) => {
-    // const optionNum = option === 1 ? "optionOneText" : "optionTwoText"
     const text = e.target.value
     if (option === 1) {
       this.setState(() => ({
@@ -46,11 +45,10 @@ class NewQuestion extends Component {
       return <Redirect to='/' />
     }
 
-
     return (
       <div>
         <h3 className='center'>Compose new Would You Rather? ..</h3>
-        <form className='new-tweet' onSubmit={this.handleSubmit}>
+        <form className='new-question' onSubmit={this.handleSubmit}>
           <textarea
             placeholder="Would you rather this.."
             value={optionOneText}

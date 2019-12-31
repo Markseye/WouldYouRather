@@ -1,4 +1,5 @@
 import {
+  _addVote,
   _getUsers,
   _getQuestions,
   _getAuthedUser,
@@ -24,4 +25,8 @@ export function setAuthedUser (user) {
 
 export function saveQuestion (question) {
   return _saveQuestion(question)
+}
+
+export function saveVote (question, user, option) {
+  return _addVote(question, user, option)
 }

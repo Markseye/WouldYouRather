@@ -1,19 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class Question extends Component {
+
   render() {
+    const { question } = this.props
+
     return(
-      <div>
-        <h3> Would You Rather? </h3>
-        <p>{this.props.question.optionOne.text}</p>
-        <p>{this.props.question.optionTwo.text}</p>
-      </div>
+      <Link to={`/question/${question.id}`} className='question'>
+        <div>
+          <h3> Would You Rather? </h3>
+          <p>{question.optionOne.text}</p>
+          <p>{question.optionTwo.text}</p>
+        </div>
+      </Link>
     );
   }
 }
 
-function mapStateToProps ({authedUser, users, questions}, { id }) {
+function mapStateToProps ({ authedUser, users, questions }, { id }) {
   const question = questions[id]
 
   return {

@@ -7,17 +7,20 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import middleware from './middleware'
-import { transitions, positions, Provider as AlertProvider } from 'react-alert'
-import AlertTemplate from 'react-alert-template-basic'
 
 const store = createStore(reducer, middleware)
 
 ReactDOM.render(
-
   <Provider store={store}>
-    <AlertProvider template={AlertTemplate} >
-      <App />
-    </AlertProvider>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)
+
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
   </Provider>,
   document.getElementById('root')
 )
