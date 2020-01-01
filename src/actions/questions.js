@@ -19,7 +19,6 @@ function addQuestion (question) {
 }
 
 function addVote (question, user, option) {
-  console.log("Question: ", question)
   return {
     type: ADD_VOTE,
     question,

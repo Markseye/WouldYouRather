@@ -12,10 +12,14 @@ class LoginModal extends Component {
   handleLogin(user_id) {
     this.props.dispatch(setAuthedUser(user_id))
     this.setState({isLoggedIn: true})
+    // return <Redirect to={this.props.prevPath} />
+    // this.props.history.goBack(-1)
   }
 
   handleClose() {
     this.setState({isLoggedIn: true})
+    // return <Redirect to={this.props.prevPath} />
+    // this.props.history.goBack(-2)
   }
 
   // resetLogin() { this.setState({isLoggedIn: false}) }
@@ -24,6 +28,7 @@ class LoginModal extends Component {
     const { users } = this.props
 
     if (this.state.isLoggedIn === true) {
+      // return this.props.history.goBack()
       return <Redirect to='/' />
     }
 

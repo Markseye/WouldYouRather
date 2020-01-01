@@ -18,7 +18,7 @@ class Header extends Component {
         <ul>
           <li>
             {this.props.authedUser === null || Object.keys(this.props.authedUser).length === 0 ? <NavLink className='login-button' to='/login'> Login </NavLink>
-              : <h3> User {this.props.authedUser} <button onClick={() => this.logout()}>LogOut</button></h3>}
+              : <h3> User {this.props.user.name} <button onClick={() => this.logout()}>LogOut</button></h3>}
           </li>
           <li>
             <NavLink to='/add' exact activeClassName='active'>
@@ -41,9 +41,10 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps ({ authedUser }) {
+function mapStateToProps ({ authedUser, users }) {
   return {
-    authedUser
+    authedUser,
+    user: users[authedUser]
   }
 }
 

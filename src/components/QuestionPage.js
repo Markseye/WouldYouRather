@@ -5,10 +5,8 @@ import { handleAddVote } from '../actions/questions'
 class QuestionPage extends Component {
 
   handleVote(option) {
-    // let history = useHistory();  
     const { authedUser, question, dispatch } = this.props
     dispatch(handleAddVote({authedUser, question, option}))
-    // history.push("/")
   }
 
   render() {
@@ -29,7 +27,7 @@ class QuestionPage extends Component {
               <p>Number of votes: {option.votes.length}</p>
               <p>Percentage: {(option.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length) * 100) || 0} %</p>
               <p>User voted for this: {option.userVoted ? "True" : "False"}</p>
-              <button className='login-button' onClick={() => this.handleVote(option)}> Vote For this Option </button>
+              <button className='vote-button' disabled={option.userVoted} onClick={() => this.handleVote(option)}> Vote For this Option </button>
             </li>
           ))}
         </ul>
@@ -51,7 +49,7 @@ function mapStateToProps ({ authedUser, users, questions }, props) {
 }
 
 function optionsList (question, authedUserId) {
-  // iterate through both options and return answered: true or false
+  console.log(question)
   return ([{text: question.optionOne.text,
             votes: question.optionOne.votes,
             userVoted: question.optionOne.votes.includes(authedUserId),

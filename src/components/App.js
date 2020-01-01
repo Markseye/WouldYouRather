@@ -14,9 +14,9 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 
 const PrivateRouteComponent = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => {
-    return(rest.isAuthed === null || rest.isAuthed instanceof Object
+    return(rest.isAuthed == null || rest.isAuthed instanceof Object
       ? <Redirect to='/login' />
-      : <Component {...props} />)
+      : <Component {...props}/>)
   }} />
 )
 
@@ -24,7 +24,6 @@ class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
   }
-  // create tabbed version of question list, filter unanswered by user ones as default
 
   render() {
     return (
@@ -33,10 +32,10 @@ class App extends Component {
           <Header />
           <LoadingBar />
           <Switch>
-            <Route path='/' exact component={QuestionList} />
+            <PrivateRoute path='/' exact component={QuestionList} isAuthed={this.props.authedUser}/>
             <PrivateRoute path='/question/:id' component={QuestionPage} isAuthed={this.props.authedUser}/>
             <Route path='/leaderboard' component={Leaderboard} />
-            <Route path='/login' component={LoginModal} />
+            <Route path='/login' component={LoginModal}/>
             <PrivateRoute path='/add' component={NewQuestion} isAuthed={this.props.authedUser}/>
             <Route component={NotFound} />
           </Switch>
@@ -46,7 +45,7 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({ authedUser, questions, users }) {
+function mapStateToProps ({ authedUser }) {
   return {
     authedUser,
   }

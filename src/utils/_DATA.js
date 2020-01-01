@@ -119,9 +119,11 @@ let questions = {
 
 export function _addVote({question, authedUser, option}) {
   return new Promise((res, rej) => {
-    // option.number === 1 ? optionOne : optionTwo
+    question.optionOne.votes = question.optionOne.votes.filter((vote) => vote !== authedUser)
+    question.optionTwo.votes = question.optionTwo.votes.filter((vote) => vote !== authedUser)
+
     const newOption = {votes: option.votes.concat([authedUser]),
-                text: option.text}
+                       text: option.text}
 
     setTimeout(() => {
       questions = {
