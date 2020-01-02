@@ -27,7 +27,7 @@ class QuestionPage extends Component {
                 <p><b>{option.text}</b></p>
                 <p>Number of votes: {option.votes.length}</p>
                 <p>Percentage: {(option.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length) * 100) || 0} %</p>
-                <p>User voted for this: {option.userVoted ? "True" : "False"}</p>
+                <p>{option.userVoted ? "🎉 You voted for this! 🎉" : null}</p>
                 <button className='vote-button' disabled={option.userVoted} onClick={() => this.handleVote(option)}> Vote For this Option </button>
               </li>
             ))}

@@ -11,16 +11,12 @@ class NewQuestion extends Component {
   }
 
   handleChange = (e, option) => {
+    let optionField = option === 1 ? "optionOneText" : "optionTwoText";
     const text = e.target.value
-    if (option === 1) {
-      this.setState(() => ({
-        optionOneText: text
-      }))
-    } else {
-      this.setState(() => ({
-        optionTwoText: text
-      }))
-    }
+
+    this.setState({
+      [optionField]: text
+    });
   }
 
   handleSubmit = (e) => {

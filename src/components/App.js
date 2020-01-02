@@ -36,7 +36,7 @@ class App extends Component {
           <Switch>
             <PrivateRoute path='/' exact component={QuestionList} isAuthed={this.props.authedUser}/>
             <PrivateRoute path='/question/:id' component={QuestionPage} isAuthed={this.props.authedUser}/>
-            <Route path='/leaderboard' component={Leaderboard} />
+            <PrivateRoute path='/leaderboard' component={Leaderboard} isAuthed={this.props.authedUser}/>
             <Route path='/login' component={LoginModal}/>
             <PrivateRoute path='/add' component={NewQuestion} isAuthed={this.props.authedUser}/>
             <Route component={NotFound} />
@@ -53,5 +53,5 @@ function mapStateToProps ({ authedUser }) {
   }
 }
 
-const PrivateRoute = connect(mapStateToProps, null)(PrivateRouteComponent);
+const PrivateRoute = connect(mapStateToProps)(PrivateRouteComponent);
 export default connect(mapStateToProps)(App)
