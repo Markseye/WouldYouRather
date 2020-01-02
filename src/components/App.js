@@ -1,21 +1,23 @@
 import React, { Component, Fragment } from 'react'
-// import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import QuestionList from './QuestionList'
 import NewQuestion from './NewQuestion'
 import QuestionPage from './QuestionPage'
 import Leaderboard from './Leaderboard'
-import Header from './Header';
+import Header from './Header'
 import LoadingBar from 'react-redux-loading'
-import LoginModal from './LoginModal';
-import NotFound from './NotFound';
+import LoginModal from './LoginModal'
+import NotFound from './NotFound'
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 
 const PrivateRouteComponent = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => {
     return(rest.isAuthed == null || rest.isAuthed instanceof Object
-      ? <Redirect to='/login' />
+      ? <Redirect to={{
+            pathname: '/login',
+            previousPath: rest.location.pathname
+        }}/>
       : <Component {...props}/>)
   }} />
 )

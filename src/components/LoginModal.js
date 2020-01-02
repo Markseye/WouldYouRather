@@ -6,29 +6,25 @@ import { Redirect } from 'react-router-dom'
 class LoginModal extends Component {
   state = {
     isLoggedIn: false,
-    display: true
+    display: true,
   }
 
   handleLogin(user_id) {
     this.props.dispatch(setAuthedUser(user_id))
     this.setState({isLoggedIn: true})
-    // return <Redirect to={this.props.prevPath} />
-    // this.props.history.goBack(-1)
+    const redirectLocation = this.props.location.previousPath
+    redirectLocation ? this.props.history.push(redirectLocation)
+                     : this.props.history.push('/')
   }
 
   handleClose() {
     this.setState({isLoggedIn: true})
-    // return <Redirect to={this.props.prevPath} />
-    // this.props.history.goBack(-2)
   }
-
-  // resetLogin() { this.setState({isLoggedIn: false}) }
 
   render () {
     const { users } = this.props
 
     if (this.state.isLoggedIn === true) {
-      // return this.props.history.goBack()
       return <Redirect to='/' />
     }
 

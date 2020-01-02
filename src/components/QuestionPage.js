@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleAddVote } from '../actions/questions'
+import NotFound from './NotFound'
 
 class QuestionPage extends Component {
 
@@ -11,27 +12,28 @@ class QuestionPage extends Component {
 
   render() {
     const { question, options } = this.props
-
     return(
-      <div style={{textAlign:'center'}}>
-        <h3> Would You Rather? </h3>
-        <img
-          src={this.props.avatar}
-          alt={`Avatar of ${question.author}`}
-          className='avatar'
-        />
-        <ul className='options-container'>
-          {options.map((option, index) => (
-            <li key={option.text} className='option-container'>
-              <p><b>{option.text}</b></p>
-              <p>Number of votes: {option.votes.length}</p>
-              <p>Percentage: {(option.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length) * 100) || 0} %</p>
-              <p>User voted for this: {option.userVoted ? "True" : "False"}</p>
-              <button className='vote-button' disabled={option.userVoted} onClick={() => this.handleVote(option)}> Vote For this Option </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      question ?
+        (<div style={{textAlign:'center'}}>
+          <h3> Would You Rather? </h3>
+          <img
+            src={this.props.avatar}
+            alt={`Avatar of ${question.author}`}
+            className='avatar'
+          />
+          <ul className='options-container'>
+            {options.map((option, index) => (
+              <li key={option.text} className='option-container'>
+                <p><b>{option.text}</b></p>
+                <p>Number of votes: {option.votes.length}</p>
+                <p>Percentage: {(option.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length) * 100) || 0} %</p>
+                <p>User voted for this: {option.userVoted ? "True" : "False"}</p>
+                <button className='vote-button' disabled={option.userVoted} onClick={() => this.handleVote(option)}> Vote For this Option </button>
+              </li>
+            ))}
+          </ul>
+        </div>)
+      : (<NotFound />)
     );
   }
 }
@@ -39,6 +41,10 @@ class QuestionPage extends Component {
 function mapStateToProps ({ authedUser, users, questions }, props) {
   const { id } = props.match.params
   const question = questions[id]
+
+  if(!question) {
+    return
+  }
 
   return {
     authedUser,
